@@ -3,7 +3,10 @@ const App = express();
 const Port = 4000;
 const route = express.Router();
 const db = require('./Config/mongoose')
+const bodyParser = require('body-parser')
 
+App.use(bodyParser.json());
+App.use(bodyParser.urlencoded({ extended: true }));
 
 
 App.use('/',require('./Routes'))
