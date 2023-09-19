@@ -4,6 +4,7 @@ module.exports.home = (req, res) => {
 	res.send("Welcome to Ecommerce API");
 };
 
+// jwt authorization for create product
 module.exports.createProduct = async (req, res) => {
 	console.log(req.body);
 	try {
@@ -24,6 +25,7 @@ module.exports.listProducts = async (req, res) => {
 	}
 };
 
+// jwt authorization for deleting products
 module.exports.deleteProduct = async (req, res) => {
 	try {
 		const { id } = req.params;
@@ -34,6 +36,7 @@ module.exports.deleteProduct = async (req, res) => {
 	}
 };
 
+// jwt authorization for updating a product
 module.exports.updateQuantity = async (req, res) => {
 	try {
 		const { id } = req.params;
