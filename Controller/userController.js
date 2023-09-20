@@ -16,6 +16,10 @@ module.exports.createUser = async function (req, res) {
 		return res.status(403).json({ message: "Password must be at least 6 characters" });
 	}
 
+    const emailExists = User.findOne({ email: email});
+    if(emailExists){
+        return res.status(403).json({ message: "Email already exists"});
+    }
 
 
 	const user = await User.create({
