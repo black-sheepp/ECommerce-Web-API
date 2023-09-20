@@ -10,7 +10,4 @@ router.patch('/product/:id/update_quantity', productController.updateQuantity);
 
 router.post('/register', userController.createUser);
 
-
-
-
 module.exports = router;

@@ -1,4 +1,5 @@
 const express = require("express");
+const dotenv = require("dotenv").config();
 const App = express();
 const Port = 4000;
 const route = express.Router();
