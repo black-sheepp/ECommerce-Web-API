@@ -71,6 +71,19 @@ module.exports.loginUser = async function (req, res) {
 	// if user exists and password is correct
 	if (user) {
 		const correctPassword = await bcrypt.compare(password, user.password);
+
+		// generate token
+		const token = generateToken(user._id);
+
+		// send http-only cookie as response to bearer side
+		res.cookie("token", token, {
+			path: "/",
+			httpOnly: true,
+			expires: new Date(Date.now() + 1000 * 86400),
+			sameSite: "none",
+			secure: true,
+		});
+
 		if (userExists && correctPassword) {
 			const { name, email, phone, bio } = user;
 			return res.status(200).json({
@@ -78,6 +91,7 @@ module.exports.loginUser = async function (req, res) {
 				email,
 				phone,
 				bio,
+                token,
 			});
 		} else {
 			res.status(400).json({ message: "Invalid password or email address" });
