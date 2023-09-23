@@ -1,4 +1,5 @@
 const router = require('express').Router()
+const protectUser = require('../Config/authMiddleware');
 const productController = require('../Controller/productController')
 const userController = require("../Controller/userController")
 
@@ -11,5 +12,6 @@ router.patch('/product/:id/update_quantity', productController.updateQuantity);
 router.post('/register', userController.createUser);
 router.post('/login', userController.loginUser);
 router.get('/logout', userController.logoutUser);
+router.get('/user', protectUser, userController.getUser);
 
 module.exports = router;

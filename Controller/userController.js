@@ -110,3 +110,19 @@ module.exports.logoutUser = async function (req, res) {
 	});
 	return res.status(200).json({ message: "User logged in successfully" });
 };
+
+module.exports.getUser = async function (req,res){
+    const user = await User.findById(req.user._id);
+
+    if(user){
+        const { name, email, phone, bio } = user;
+		return res.status(200).json({
+			name,
+			email,
+			phone,
+			bio,
+		});
+    }else{
+        res.status(400).json({message: 'User not found'});
+    }
+} 
