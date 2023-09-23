@@ -9,5 +9,7 @@ router.delete('/product/delete/:id', productController.deleteProduct);
 router.patch('/product/:id/update_quantity', productController.updateQuantity);
 
 router.post('/register', userController.createUser);
+router.post('/login', userController.loginUser);
+
 
 module.exports = router;
