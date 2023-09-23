@@ -39,22 +39,27 @@ module.exports.deleteProduct = async (req, res) => {
 // jwt authorization for updating a product
 module.exports.updateQuantity = async (req, res) => {
 	try {
-		const { id } = req.params;
-		const { name } = req.query;
-		const { quantity } = req.query;
-		const product = await Product.findById(id);
+		const product = await Product.findById(req.params._id);
 
 		if (!product) {
 			return res.status(404).json({ error: "Product not found" });
 		}
 
-		await Product.findOneAndUpdate(
-			{
-				$set: { name: name, quantity: quantity },
-			},
-		);
+		if(product){
+			const {name, quantity} = req.query;
+			product.name = name;
+			product.quantity = quantity;
 
-		res.json({ product, message: "Updated successfully" });
+			const updatedProduct = await product.save();
+
+			return res.status(200).json({
+				_id,
+				name,
+				quantity,
+			})
+		}
+
+		return res.json({ product, message: "Updated successfully" });
 	} catch (error) {
 		res.status(500).json({ error: "Error updating quantity" });
 	}
